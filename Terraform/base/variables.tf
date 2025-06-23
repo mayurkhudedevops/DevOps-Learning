@@ -1,5 +1,5 @@
 variable "prefix" {
-  default = "news4321"
+  default = "mayurtest"
 }
 
 variable "location" {

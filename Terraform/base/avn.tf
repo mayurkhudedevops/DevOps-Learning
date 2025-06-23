@@ -24,21 +24,21 @@ resource "azurerm_public_ip" "public-ip-quotes" {
   name                = "public-ip-quotes"
   resource_group_name = data.azurerm_resource_group.azure-resource.name
   location            = azurerm_virtual_network.virtual-network.location
-  allocation_method   = "Dynamic"
+  allocation_method   = "Static"
 }
 
 resource "azurerm_public_ip" "public-ip-newsfeed" {
   name                = "public-ip-newsfeed"
   resource_group_name = data.azurerm_resource_group.azure-resource.name
   location            = azurerm_virtual_network.virtual-network.location
-  allocation_method   = "Dynamic"
+  allocation_method   = "Static"
 }
 
 resource "azurerm_public_ip" "public-ip-frontend" {
   name                = "public-ip-frontend"
   resource_group_name = data.azurerm_resource_group.azure-resource.name
   location            = azurerm_virtual_network.virtual-network.location
-  allocation_method   = "Dynamic"
+  allocation_method   = "Static"
 }
 
 # Routing table for public subnets
