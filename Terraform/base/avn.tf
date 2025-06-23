@@ -46,7 +46,7 @@ resource "azurerm_route_table" "route-table" {
   name                          = "route-table"
   location                      = azurerm_virtual_network.virtual-network.location
   resource_group_name           = azurerm_virtual_network.virtual-network.resource_group_name
-  disable_bgp_route_propagation = false
+  #disable_bgp_route_propagation = false
 
   route {
     name           = "route"
