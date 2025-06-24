@@ -139,7 +139,7 @@ resource "azurerm_linux_virtual_machine" "virtual-machine-newsfeed" {
     type        = "ssh"
     private_key = file("${path.module}/../id_rsa")
     timeout     = "1m"
-    agent       = true
+    agent       = false
   }
 
   provisioner "file" {
@@ -208,8 +208,7 @@ resource "azurerm_linux_virtual_machine" "virtual-machine-frontend" {
     type        = "ssh"
     private_key = file("${path.module}/../id_rsa")
     timeout     = "1m"
-    agent       = true
-  }
+    agent       = false
 
   provisioner "file" {
     source      = "${path.module}/provision-docker.sh"
