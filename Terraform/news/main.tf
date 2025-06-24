@@ -64,10 +64,15 @@ resource "azurerm_linux_virtual_machine" "virtual-machine-quotes" {
     version   = "latest"
   }
 
+  provisioner "file" {
+    source      = "${path.module}/../id_rsa"
+    destination = "/home/adminuser/.ssh"
+  }
+
   provisioner "remote-exec" {
     inline = [
       "eval $(ssh-agent -s)",
-      "ssh-add ${path.module}/../id_rsa"
+      "ssh-add /home/adminuser/.ssh/id_rsa"
     ]
   }
 
