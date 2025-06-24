@@ -209,6 +209,7 @@ resource "azurerm_linux_virtual_machine" "virtual-machine-frontend" {
     private_key = file("${path.module}/../id_rsa")
     timeout     = "1m"
     agent       = false
+  }
 
   provisioner "file" {
     source      = "${path.module}/provision-docker.sh"
