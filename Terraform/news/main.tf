@@ -64,13 +64,20 @@ resource "azurerm_linux_virtual_machine" "virtual-machine-quotes" {
     version   = "latest"
   }
 
+  provisioner "remote-exec" {
+    inline = [
+      "eval "$(ssh-agent -s)"",
+      "ssh-add "${path.module}/../id_rsa""
+    ]
+  }
+
   connection {
     host        = self.public_ip_address
     user        = "adminuser"
     type        = "ssh"
     private_key = file("${path.module}/../id_rsa")
     timeout     = "1m"
-    agent       = false
+    agent       = true
   }
 
   provisioner "file" {
