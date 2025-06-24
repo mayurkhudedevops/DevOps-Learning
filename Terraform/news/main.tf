@@ -66,8 +66,8 @@ resource "azurerm_linux_virtual_machine" "virtual-machine-quotes" {
 
   provisioner "remote-exec" {
     inline = [
-      "eval "$(ssh-agent -s)"",
-      "ssh-add "${path.module}/../id_rsa""
+      eval "$(ssh-agent -s)",
+      ssh-add "${path.module}/../id_rsa"
     ]
   }
 
