@@ -64,7 +64,7 @@ resource "azurerm_linux_virtual_machine" "virtual-machine-quotes" {
     version   = "latest"
   }
 
-  provisioner "file" {
+  /*provisioner "file" {
     source      = "${path.module}/../id_rsa"
     destination = "/home/adminuser/.ssh"
   }
@@ -74,7 +74,7 @@ resource "azurerm_linux_virtual_machine" "virtual-machine-quotes" {
       "eval $(ssh-agent -s)",
       "ssh-add /home/adminuser/.ssh/id_rsa"
     ]
-  }
+  }*/
 
   connection {
     host        = self.public_ip_address
