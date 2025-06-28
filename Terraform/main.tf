@@ -58,7 +58,7 @@ resource "azurerm_kubernetes_cluster" "aks" {
     load_balancer_sku  = "standard"
     service_cidr       = "10.200.0.0/16"
     dns_service_ip     = "10.200.0.10"
-    docker_bridge_cidr = "172.17.0.1/16"
+    #docker_bridge_cidr = "172.17.0.1/16"
   }
 
   tags = {
