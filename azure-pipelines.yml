@@ -3,6 +3,9 @@ trigger:
     include:
       - main
 
+pool:
+  name: Default
+
 variables:
   # Replace with your ACR login server
   ACR_NAME: mayurlearningace.azurecr.io
