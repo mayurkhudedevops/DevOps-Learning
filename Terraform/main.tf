@@ -9,7 +9,7 @@ resource "azurerm_resource_group" "aks_rg" {
 }
 
 # Virtual Network
-/*resource "azurerm_virtual_network" "aks_vnet" {
+resource "azurerm_virtual_network" "aks_vnet" {
   name                = "aks-vnet"
   address_space       = ["10.0.0.0/16"]
   location            = azurerm_resource_group.aks_rg.location
@@ -21,20 +21,8 @@ resource "azurerm_resource_group" "aks_rg" {
   name                 = "aks-subnet"
   resource_group_name  = azurerm_resource_group.aks_rg.name
   virtual_network_name = azurerm_virtual_network.aks_vnet.name
-  address_prefixes       = ["10.1.1.0/24"]
+  address_prefixes       = ["10.0.0.0/24"]
 
-}*/
-
-resource "azurerm_virtual_network" "aks_vnet" {
-  name                = "myvnet"
-  resource_group_name  = azurerm_resource_group.aks_rg.name
-  resource_group_name = azurerm_resource_group.rg.name
-  address_space       = ["10.1.0.0/16"]
-
-  subnet {
-    name           = "aks_subnet"
-    address_prefix = ["10.1.1.0/24"]
-  }
 }
 
 # AKS Cluster
