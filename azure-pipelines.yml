@@ -1,0 +1,36 @@
+trigger:
+  branches:
+    include:
+      - main
+
+variables:
+  # Replace with your ACR login server
+  ACR_NAME: mayurlearningace.azurecr.io
+  IMAGE_NAME: aks-test-app
+
+stages:
+  - stage: BuildAndPush
+    jobs:
+      - job: BuildAndPushImage
+        displayName: Build and Push Docker Image to ACR
+        pool:
+          vmImage: 'ubuntu-latest'
+
+        steps:
+          - task: AzureCLI@2
+            inputs:
+              azureSubscription: 'ADO-Service-Connection'  # Name of your Azure service connection
+              scriptType: 'bash'
+              scriptLocation: 'inlineScript'
+              inlineScript: |
+                echo "Logging in to ACR..."
+                az acr login --name $ACR_NAME
+
+                echo "Building Docker image..."
+                docker build -t $ACR_NAME/$IMAGE_NAME:$(Build.BuildId) .
+
+                echo "Pushing image to ACR..."
+                docker push $ACR_NAME/$IMAGE_NAME:$(Build.BuildId)
+
+                echo "Image pushed: $ACR_NAME/$IMAGE_NAME:$(Build.BuildId)"
+            displayName: 'Build and Push Docker Image'
