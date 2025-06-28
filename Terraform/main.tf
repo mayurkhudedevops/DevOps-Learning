@@ -25,6 +25,20 @@ resource "azurerm_virtual_network" "aks_vnet" {
 
 }
 
+# ACR
+
+resource "azurerm_container_registry" "acr" {
+  name                = "mayurlearningace"  # Must be globally unique
+  location            = azurerm_resource_group.aks_rg.location
+  resource_group_name = azurerm_resource_group.aks_rg.name
+  sku                 = "Basic"             # Options: Basic, Standard, Premium
+  admin_enabled       = true                # Enables username/password access (optional)
+
+  tags = {
+    environment = "dev"
+  }
+}
+
 # AKS Cluster
 resource "azurerm_kubernetes_cluster" "aks" {
   name                = "aks-cluster"
