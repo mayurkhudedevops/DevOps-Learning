@@ -1,7 +1,7 @@
 trigger:
   branches:
     include:
-      - main
+      - AKS
 
 variables:
   # Replace with your ACR login server
