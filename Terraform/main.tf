@@ -17,21 +17,12 @@ resource "azurerm_virtual_network" "aks_vnet" {
 }
 
 # Subnet
-resource "azurerm_subnet" "aks_subnet" {
+  resource "azurerm_subnet" "aks_subnet" {
   name                 = "aks-subnet"
   resource_group_name  = azurerm_resource_group.aks_rg.name
   virtual_network_name = azurerm_virtual_network.aks_vnet.name
-  address_prefixes     = ["10.240.0.0/24"]
+  address_prefix       = "10.1.1.0/24"
 
-  delegation {
-    name = "aks_delegation"
-    service_delegation {
-      name = "Microsoft.ContainerService/managedClusters"
-      actions = [
-        "Microsoft.Network/virtualNetworks/subnets/action"
-      ]
-    }
-  }
 }
 
 # AKS Cluster
