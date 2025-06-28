@@ -1,29 +1,36 @@
-# Docker
-# Build a Docker image
-# https://docs.microsoft.com/azure/devops/pipelines/languages/docker
-
 trigger:
-- main
-
-resources:
-- repo: self
+  branches:
+    include:
+      - main
 
 variables:
-  tag: '$(Build.BuildId)'
+  # Replace with your ACR login server
+  ACR_NAME: mayurlearningace.azurecr.io
+  IMAGE_NAME: aks-test-app
 
 stages:
-- stage: Build
-  displayName: Build image
-  jobs:
-  - job: Build
-    displayName: Build
-    pool:
-      vmImage: ubuntu-latest
-    steps:
-    - task: Docker@2
-      displayName: Build an image
-      inputs:
-        command: build
-        dockerfile: '$(Build.SourcesDirectory)/joi-news-azure-interview-main/front-end/Dockerfile'
-        tags: |
-          $(tag)
+  - stage: BuildAndPush
+    jobs:
+      - job: BuildAndPushImage
+        displayName: Build and Push Docker Image to ACR
+        pool:
+          vmImage: 'ubuntu-latest'
+
+        steps:
+          - task: AzureCLI@2
+            inputs:
+              azureSubscription: 'ADO-Service-Connection'  # Name of your Azure service connection
+              scriptType: 'bash'
+              scriptLocation: 'inlineScript'
+              inlineScript: |
+                echo "Logging in to ACR..."
+                az acr login --name $ACR_NAME
+
+                echo "Building Docker image..."
+                docker build -t $ACR_NAME/$IMAGE_NAME:$(Build.BuildId) .
+
+                echo "Pushing image to ACR..."
+                docker push $ACR_NAME/$IMAGE_NAME:$(Build.BuildId)
+
+                echo "Image pushed: $ACR_NAME/$IMAGE_NAME:$(Build.BuildId)"
+            displayName: 'Build and Push Docker Image'
