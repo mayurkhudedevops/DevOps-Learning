@@ -4,7 +4,7 @@ trigger:
       - AKS
 
 pool:
-  name: Default
+  name: Hosted Agent
 
 variables:
   # Replace with your ACR login server
