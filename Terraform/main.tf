@@ -15,7 +15,6 @@ resource "azurerm_app_service_plan" "asp" {
     tier = "Basic"
     size = "B1"
   }
-  os_type = "Linux"
 }
 
 resource "azurerm_app_service" "app" {
